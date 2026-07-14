@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import {FileText,Menu,X} from "lucide-react";
 import ProfileDropdown from "../layout/ProfileDropdown";
 
@@ -69,8 +69,42 @@ const Headers =  () => {
                 </div>
             </div>
         </div>
+
+        {isMenuOpen && (
+            <div className="">
+                <div className="">
+                    <a href="#features" className="">
+                        Features
+                    </a>
+                    <a href="#testimonials" className="">
+                        Testimonials
+                    </a>
+                    <a href="#faq" className="">
+                        FAQ
+                    </a>
+                    <div className=""></div>
+                    {isAutenticated ? (
+                        <div className="">
+                            <button onClick={() => Navigate("/dashboard")} 
+                            className="">
+                                Go to Dashboard
+                            </button>
+                        </div>
+                    ) : (
+                        <>
+                        <Link to="/login" className="">
+                            Login
+                        </Link>
+                        <Link to="/SignUp" className="">
+                            Sign Up
+                        </Link>
+                        </>
+                    )}
+                </div>
+            </div>
+        )}
     </header>
-  )
+  );
 };
 
 export default Headers ;
