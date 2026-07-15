@@ -1,7 +1,7 @@
 import { Loader2 } from "lucide-react";
 
 const Button =  ({
-    variant = 'primary',
+    variant ='primary',
     size = 'medium',
     isLoading = false,
     children,
@@ -12,7 +12,7 @@ const Button =  ({
         const variantClasses = {
             primary: 'bg-blue-900  hover:bg-blue-800 text-white',
             secondary: 'bg-white hover:bg-slate-50 text-slate-700 border border-slate-200',
-            ghost: 'bg-transperent hover:bg-slate-100 text-slate-700'
+            ghost: 'bg-transparent hover:bg-slate-100 text-slate-700'
         };
         const sizeClasses = {
             small :'px-3 py-1 h-8 text-sm',

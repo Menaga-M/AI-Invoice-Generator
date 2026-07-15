@@ -9,7 +9,7 @@ const Headers =  () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 const navigate = useNavigate()
 
-  const isAutenticated = true;
+  const isAutenticated = false;
   const user = {name:'Alex', email:'alex@timetoprogram.com'}
   const logout =(()=> {
 
@@ -38,7 +38,7 @@ const navigate = useNavigate()
                         AI Invoice App
                     </span>
                 </div>
-                <div className="hidden lg:flex lg-items-center lg:space-x-8">
+                <div className="hidden lg:flex lg:items-center lg:space-x-8">
                     <a href="#features" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-black after:transition-all hover:after:w-full">
                         Features
                     </a>
@@ -73,9 +73,9 @@ const navigate = useNavigate()
         </div>
 
         {isMenuOpen && (
-            <div className="lg:hidden absolute" top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg >
+            <div className="lg:hidden absolute top-full left-0 right-0 bg-white border-b border-gray-200 shadow-lg">
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                    <a href="#features" className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font medium transition-colors duration-200">
+                    <a href="#features" className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font-medium transition-colors duration-200">
                         Features
                     </a>
                     <a href="#testimonials" className="block px-4 py-3 text-gray-600 hover:text-gray-900 hover:bg-gray-50 font medium transition-colors duration-200">
@@ -87,8 +87,7 @@ const navigate = useNavigate()
                     <div className="border-t border-gray-200 my-2"></div>
                     {isAutenticated ? (
                         <div className="p-4">
-                            <Button onClick={() => navigate("/dashboard")} 
-                            className="w-full">
+                            <Button onClick={() => navigate("/dashboard")} className="w-full">
                                 Go to Dashboard
                             </Button>
                         </div>
