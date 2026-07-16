@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {Twitter, Github, LinkedIn, FileText} from "lucide-react";
+import {X, Github, Linkedin, FileText} from "lucide-react";
 
 const FooterLink = ({href, to, children}) => {
     const className= "block text-gray-400 hover:text-white transition-colors duration-200";
@@ -17,7 +17,7 @@ const SocialLink = ({href, children}) => {
 }
 const Footer = () => {
   return (
-    <footer className="">
+    <footer className="bg-gray-900 text-white">
         <div className="">
             <div className="">
                 <div className="">
@@ -73,13 +73,13 @@ const Footer = () => {
                     </p>
                     <div className="">
                         <SocialLink href="#">
-                            <Twitter className=""/>
+                            <X className=""/>
                         </SocialLink>
                         <SocialLink href="#">
                             <Github className=""/>
                         </SocialLink>
                         <SocialLink href="#">
-                            <LinkedIn className=""/>
+                            <Linkedin className=""/>
                         </SocialLink>
                     </div>
                 </div>
