@@ -43,3 +43,34 @@ export const TESTIMONIALS = [
     avatar: "https://placehold.co/100x100/000000/ffffff?text=PJ"
   }
 ];
+
+export const FAQS = [
+  {
+    question: "How does the AI invoice creation work?",
+    answer: "Simply paste any text that contains invoice details-like an email, a list of items, or a chat message. Our AI will extract the client, items, amounts, and dates, then generate a professional invoice for you in seconds."
+  },
+  {
+    question: "Is there a free trial available?",
+    answer: "Yes, you can try our platform for free for 14 days. If you want, we'll provide full access to all features with no credit card required. You can cancel anytime during the trial."
+  },
+  {
+    question: "Can I change my plan later?",
+    answer: "Of course. Our pricing scales with your company. Chat to our friendly team to upgrade, downgrade, or change plans at any time. Your billing will be prorated automatically."
+  },
+  {
+    question: "What is your cancellation policy?",
+    answer: "We understand that things change. You can cancel your plan at any time and we'll stop your subscription at the end of your current billing period. No fees or questions asked."
+  },
+  {
+    question: "Can other info be added to an invoice?",
+    answer: "Yes, you can add notes, payment terms, and even attach files to your invoices."
+  },
+  {
+    question: "How does billing work?",
+    answer: "Plans are per workspace, not per account. You can upgrade one workspace, and still keep other workspaces on the free plan. Billing happens monthly or annually based on your choice."
+  },
+  {
+    question: "How do I change my account email?",
+    answer: "You can change your account email from your profile settings page."
+  }
+];
