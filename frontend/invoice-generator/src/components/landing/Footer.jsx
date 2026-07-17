@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import {X, Github, Linkedin, FileText} from "lucide-react";
+import {Twitter, Github, Linkedin, FileText} from "lucide-react";
 
 const FooterLink = ({href, to, children}) => {
     const className= "block text-gray-400 hover:text-white transition-colors duration-200";
@@ -18,20 +18,20 @@ const SocialLink = ({href, children}) => {
 const Footer = () => {
   return (
     <footer className="bg-gray-900 text-white">
-        <div className="">
-            <div className="">
-                <div className="">
-                    <Link to="" className="">
-                        <div className="">
-                            <FileText className=""/>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="space-y-4 md:col-span-2 lg:col-span-1">
+                    <Link to="/" className="flex items-center space-x-2 mb-6">
+                        <div className="w-8 h-8 bg-blue-950 rounded-md flex items-center justify-center ">
+                            <FileText className="w-4 h-4 text-white"/>
                         </div>
-                        <span className="">AI Invoice App</span>
+                        <span className="text-xl font-bold">AI Invoice App</span>
                     </Link>
-                    <p className="">The simplest way to create and send professional invoices.</p>
+                    <p className="text-gray-400 leading-relaxed max-w-sm">The simplest way to create and send professional invoices.</p>
                 </div>
                 <div>
-                    <h3 className="">Product</h3>
-                    <ul className="">
+                    <h3 className="text-base font-semibold mb-4">Product</h3>
+                    <ul className="space-y-2">
                         <li>
                             <FooterLink href="#features">Features</FooterLink>
                         </li>
@@ -44,8 +44,8 @@ const Footer = () => {
                     </ul>
                 </div>
                 <div>
-                    <h3 className="">Company</h3>
-                        <ul className="">
+                    <h3 className="text-base font-semibold mb-4">Company</h3>
+                        <ul className="space-y-2">
                             <li>
                                 <FooterLink to="/about">About us</FooterLink>
                             </li>
@@ -55,8 +55,8 @@ const Footer = () => {
                         </ul>
                 </div>
                 <div>
-                    <h3 className="">Legal</h3>
-                    <ul className="">
+                    <h3 className="text-base font-semibold mb-4">Legal</h3>
+                    <ul className="space-y-2">
                         <li>
                             <FooterLink to="/privacy">Privacy Policy</FooterLink>
                         </li>
@@ -66,20 +66,20 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
-            <div className="">
-                <div className="">
-                    <p className="">
+            <div className="border-t border-gray-800 py-8 mt-16">
+                <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p className="text-gray-400">
                         &copy; 2026 AI Invoice App. All rights reserved.
                     </p>
-                    <div className="">
+                    <div className="flex space-x-4">
                         <SocialLink href="#">
-                            <X className=""/>
+                            <Twitter className="w-5 h-5"/>
                         </SocialLink>
                         <SocialLink href="#">
-                            <Github className=""/>
+                            <Github className="w-5 h-5"/>
                         </SocialLink>
                         <SocialLink href="#">
-                            <Linkedin className=""/>
+                            <Linkedin className="w-5 h-5"/>
                         </SocialLink>
                     </div>
                 </div>
