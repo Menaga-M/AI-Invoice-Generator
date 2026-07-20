@@ -11,7 +11,23 @@ exports.registerUser = async(req,res) => {
     const {name, email, password} = req.body;
 
     try{
+        if(!name || !email || !password) {
+            return res.status(400).json({message : "Please fill all fields"});
+        }
 
+        const UserExists = await User.findOne({email});
+        if(UserExists){
+            return res.status(400).json({message : "User already exists"})
+        }
+
+        const User = await User.create({name, email, password});
+        if(user){
+            res.status(201).json({ _id : user._id, name: user.name, email: user.email,
+                token : generateToken(user._id)
+            });
+        }else {
+            res.status(500).json({message : "Invalid user data"})
+        }
     }catch(error){
         res.status(500).json({message : "Server error"});
     }
@@ -21,7 +37,19 @@ exports.loginUser = async(req, res) => {
     const {email, password} = req.body;
 
     try{
+        const user = await User.findOne({email}).select("+password");
 
+        if(user &&  (await user.matchPassword(password))) {
+            res.json({
+                 _id : user._id, name: user.name, email: user.email,
+                 token : generateToken(user._id),
+                 businessName :  user.businessName || "",
+                 address : user.address || "",
+                 phone : user.phone || "",
+            });
+        }else {
+            res.status(401).json({message : "Invalid credentials"});
+        }
     }catch(error){
         res.status(500).json({message : "Server error"});
     }
@@ -30,19 +58,47 @@ exports.loginUser = async(req, res) => {
 exports.getMe = async (req, res) => {
 
     try{
+        const user = await User.findById(req.user.id);
+        res.json({
+                 _id : user._id,
+                 name: user.name,
+                 email: user.email,
 
+                 businessName :  user.businessName || "",
+                 address : user.address || "",
+                 phone : user.phone || "",
+            });
     }catch(error){
         res.status(500).json({message : "Server error"});
-    }
-
+    };
 };
 
 exports.updateUserProfile = async(req, res) => {
 
     try{
+        const user = await User.findById(req.user.id);
+
+        if(user) {
+            user.name = req.body.name || user.name;
+            user.businessName =  user.body.businessName || user.businessName;
+            user.address = user.body.address || user.address;
+            user.phone = user.body.phone || user.phone;
+
+            const updateUser = await user.save();
+
+            res.json({
+                _id: updateUser._id,
+                name : updateUser.name,
+                email : updateUser.email,
+                businessName : updateUser.businessName,
+                address : updateUser.address,
+                phone : updateUser.phone,
+            });
+        }else{
+            res.status(404).json({message :  "User not found"});
+        }
 
     }catch(error){
         res.status(500).json({message : "Server error"});
-    }
-
+    };
 };
