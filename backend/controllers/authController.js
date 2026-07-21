@@ -20,7 +20,7 @@ exports.registerUser = async(req,res) => {
             return res.status(400).json({message : "User already exists"})
         }
 
-        const User = await User.create({name, email, password});
+        const user = await User.create({name, email, password});
         if(user){
             res.status(201).json({ _id : user._id, name: user.name, email: user.email,
                 token : generateToken(user._id)
@@ -80,9 +80,9 @@ exports.updateUserProfile = async(req, res) => {
 
         if(user) {
             user.name = req.body.name || user.name;
-            user.businessName =  user.body.businessName || user.businessName;
-            user.address = user.body.address || user.address;
-            user.phone = user.body.phone || user.phone;
+            user.businessName =  req.body.businessName || user.businessName;
+            user.address = req.body.address || user.address;
+            user.phone = req.body.phone || user.phone;
 
             const updateUser = await user.save();
 
