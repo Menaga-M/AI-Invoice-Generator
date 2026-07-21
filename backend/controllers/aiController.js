@@ -1,7 +1,7 @@
-const { GoogleGenAi } = require("@google/genai");
+const { GoogleGenAI } = require("@google/genai");
 const Invoice = require("../models/Invoice");
 
-const ai = new GoogleGenAi({ apiKey : process.env.GEMINI_API_KEY});
+const ai = new GoogleGenAI({ apiKey : process.env.GEMINI_API_KEY});
 
 const parseInvoiceFromText = async(req,res) => {
     const { text } = req.body;
@@ -35,16 +35,16 @@ const parseInvoiceFromText = async(req,res) => {
         
         Extract the data and provide only the JSON object.`;
         const response = await ai.models.generateContent({
-            model : "gemini-2.0-flash-latest",
+            model : "gemini-2.0-flash",
             contents : prompt
         });
         
-        const responseText = response.text;
+        let responseText = response.text;
 
-        if(typeof responseText !== 'string'){
-            if(typeof response.text === 'function'){
+        if (typeof responseText !== 'string') {
+            if (typeof response.text === 'function') {
                 responseText = response.text();
-            }else{
+            } else {
                 throw new Error("Could not extract text from AI response.");
             }
         }
@@ -53,30 +53,26 @@ const parseInvoiceFromText = async(req,res) => {
 
         const parsedData = JSON.parse(cleanedJson);
         res.status(200).json(parsedData);
-        
-    }catch{
+
+    } catch (error) {
         console.error("Error parsing invoice with AI:", error);
         res.status(500).json({message : "Failed to parse invoice data from text.", details: error.message});
     }
 };
 
-module.exports = {parseInvoiceFromText};
-
 const generateRemainderEmail = async (req, res) => {
-    try{
+    try {
 
-    }catch{
+    } catch (error) {
         console.error("Error generating remainder email with AI:", error);
         res.status(500).json({message : "Failed to parse invoice data from text.", details: error.message});
-    }
+    };
 };
 
-module.exports = {parseInvoiceFromText, generateRemainderEmail};
-
 const getDashboardSummary = async (req, res) => {
-    try{
+    try {
 
-    }catch{
+    } catch (error) {
         console.error("Error dashboard summary with AI:", error);
         res.status(500).json({message : "Failed to parse invoice data from text.", details: error.message});
     }
