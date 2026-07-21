@@ -8,7 +8,7 @@ const generateToken = (id) => {
 };
 
 exports.registerUser = async(req,res) => {
-    const {name, email, password} = req.body;
+    const {name, email, password} = req.body || {};
 
     try{
         if(!name || !email || !password) {
