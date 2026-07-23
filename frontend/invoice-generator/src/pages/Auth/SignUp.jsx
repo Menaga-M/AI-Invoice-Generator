@@ -166,7 +166,7 @@ const SignUp =  () => {
         password: formData.password,
       });
       const data = response.data;
-      const {token, user} = data;
+      const {token } = data;
 
       if(response.status === 201){
         setSuccess("Account created successfully");
@@ -185,7 +185,7 @@ const SignUp =  () => {
           confirmPassword: false
         });
         
-        login(user, token);
+        login(data, token);
         navigate("/dashboard");
        
       }
