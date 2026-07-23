@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {useState} from "react";
 import {
   Eye,
   EyeOff,
@@ -6,13 +6,13 @@ import {
   Mail,
   Lock,
   FileText,
-  ArrowRight,
-  Loader
+  ArrowRight
 } from "lucide-react";
 import { API_PATHS } from "../../utils/apiPaths";
 import { useAuth } from "../../context/AuthContent";
 import axiosInstance from "../../utils/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { validateEmail, validatePassword } from "../../utils/helper";
 
 const Login =  () => {
   const { login } = useAuth();
@@ -34,13 +34,94 @@ const Login =  () => {
     email:false,
     password:false,
   });
-  const handleInputChange = (e) => {};
+  const handleInputChange = (e) => {
+    const { name, value} = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name] : value
+    }));
 
-  const handleBlur = (e) => {};
+    if(touched[name]){
+      const newFieldErrors = {...fieldErrors};
+      if(name === "email") {
+        newFieldErrors.email = validateEmail(value);
+      }else if(name === "password"){
+        newFieldErrors.password = validatePassword(value);
+      }
+      setFieldErrors(newFieldErrors);
+    }
 
-  const isFormValid = () => {};
+    if(error) setError("");
+  };
 
-  const handleSubmit = async () => {};
+  const handleBlur = (e) => {
+    const {name}  = e.target;
+    setTouched((prev) => ({
+      ...prev,
+      [name] : true,
+    }));
+
+    const newFieldErrors = {...fieldErrors};
+    if(name === "email"){
+      newFieldErrors.email = validateEmail(formData.email);
+    } else if (name === "password"){
+      newFieldErrors.password = validatePassword(formData.password);
+    }
+    setFieldErrors(newFieldErrors);
+  };
+
+  const isFormValid = () => {
+    const emailError = validateEmail(formData.email);
+    const passwordError = validatePassword(formData.password);
+    return !emailError && !passwordError && formData.email && formData.password;  
+  };
+
+  const handleSubmit = async () => {
+    const emailError = validateEmail(formData.email);
+    const passwordError = validatePassword(formData.password);
+
+    if(emailError || passwordError) {
+      setFieldErrors({
+        email : emailError,
+        password: passwordError
+      });
+      setTouched({
+        email: true,
+        password: true
+      });
+      return;
+    }
+    setIsLoading(true);
+    setError("");
+    setSuccess("");
+
+    try{
+      const response = await axiosInstance.post(API_PATHS.AUTH.lOGIN, formData);
+
+      if(response.status === 200){
+        const {token} = response.data;
+
+        if(token){
+          setSuccess("Login successful");
+          login(response.data, token);
+
+          setTimeout(() => {
+            window.location.href = '/dashboard'
+          },2000);
+        }
+      }else {
+        setError(response.data.message || "Invalid credentials");
+      }
+    }catch(err){
+      if(err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+      }else{
+        setError("An error occurred during login.")
+      }
+    } finally{
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white flex items-center justify-center px-4">
