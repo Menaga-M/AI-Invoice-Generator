@@ -87,7 +87,7 @@ exports.updateInvoice = async(req, res) => {
         let subtotal = 0;
         let taxTotal = 0;
         if(items && items.length > 0){
-            items.forEach((items) => {
+            items.forEach((item) => {
                 subtotal += item.unitPrice * item.quantity;
                 taxTotal += ((item.unitPrice * item.quantity) * (item.taxPercent || 0)) / 100;
             });
@@ -112,7 +112,7 @@ exports.updateInvoice = async(req, res) => {
             },{ new : true }
         );
 
-        if(!updatedInvoice) return res.status(404).json({message : "Invoice not found"});
+        if(!updateInvoice) return res.status(404).json({message : "Invoice not found"});
         res.json(updateInvoice);
     }catch(error){
         res
