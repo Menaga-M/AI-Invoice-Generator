@@ -1,4 +1,4 @@
-import { BarChart2, FileText, Mail, Sparkles } from "lucide-react";
+import { BarChart2, FileText, LayoutDashboard, Mail, Plus, Sparkles, Users } from "lucide-react";
 
 export const FEATURES = [
   {
@@ -74,3 +74,10 @@ export const FAQS = [
     answer: "You can change your account email from your profile settings page."
   }
 ];
+
+export const NAVIGATION_MENU = [
+  {id : "dashboard", name : "Dashboard", icon: LayoutDashboard},
+  {id : "invoices", name : "Invoices", icon: FileText},
+  {id : "invoices/new", name : "Create Invoice", icon: Plus},
+  {id : "profile", name : "Profile", icon: Users},
+]
