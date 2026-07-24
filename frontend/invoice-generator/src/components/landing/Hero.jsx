@@ -1,9 +1,10 @@
 //import React from 'react'
 import { Link } from "react-router-dom";
 import HERO_IMG from "../../assets/Hero-img.png";
+import { useAuth } from "../../context/AuthContent";
 
 const Hero = () => {
-  const isAuthenticated = false;
+  const {isAuthenticated} = useAuth();
   return (
     <section className="relative bg-[#fbfbfb] overflow-hidden">
       <div className="absolute inset-0 bg-grid-white/[00.05] bg-[size:60px_60px]"></div>
