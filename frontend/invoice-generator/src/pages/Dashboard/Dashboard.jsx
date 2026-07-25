@@ -82,7 +82,7 @@ const Dashboard =  () => {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-96">
       <div>
         <h2 className="text-xl font-semibold text-slate-900">Dashboard</h2>
         <p className="text-sm text-slate-600 mt-1">A quick overview of your business finances.</p>
@@ -114,7 +114,85 @@ const Dashboard =  () => {
         ))}
       </div>
 
+        <div className="">
+          <div className="">
+            <h3 className="">Recent Invoices</h3>
+            <Button variant="ghost" onClick={() => navigate("/invoices")}>
+              View All
+            </Button>
+          </div>
 
+          {recentInvoices.length > 0 ? (
+            <div className="">
+              <table className="">
+                <thead className="">
+                  <tr>
+                    <th className="">
+                      Client
+                    </th>
+                    <th className="">
+                      Amount
+                    </th>
+                    <th className="">
+                      Status
+                    </th>
+                    <th className="">
+                      Due Date
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="">
+                  {recentInvoices.map((invoice) => (
+                    <tr 
+                    key={invoice._id}
+                    onClick={() => navigate(`/invoices/${invoice._id}`)}
+                    className="">
+                      <td className="">
+                        <div className="">
+                          {invoice.billTo.clientName}
+                        </div>
+                        <div className="">
+                          {invoice.invoiceNumber}
+                        </div>
+                      </td>
+                      <td className="">
+                        ${invoice.total.toFixed(2)}
+                      </td>
+                      <td className="">
+                        <span 
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                        ${invoice.status === "Paid"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : invoice.status === "Pending"
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-red-100 text-red-800"
+                        }`}>{invoice.status}</span>
+                      </td>
+                      <td className="">
+                        {moment(invoice.dueDate).format("MMM D, YYYY")}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div className="">
+              <div className="">
+                <FileText className=""/>
+              </div>
+              <h3 className="">
+                No invoices yet
+              </h3>
+              <p className="">
+                You haven't created any invoices yet. Get started by creating your first one.
+              </p>
+              <Button onClick={() => navigate("/invoices/new")} icon={Plus}>
+                Create Invoice
+              </Button>
+            </div>
+          )}
+        </div>
     </div>
   )
 };
