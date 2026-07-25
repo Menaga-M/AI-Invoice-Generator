@@ -96,7 +96,8 @@ const CreateInvoice =  (existingInvoice, onSave) => {
   };
 
   const {subtotal, taxTotal, total} = (() => {
-    let subtotal = 0, taxTotal = 0;
+    let subtotal = 0, 
+        taxTotal = 0;
     formData.items.forEach((item) => {
       const itemTotal = (item.quantity || 0) * (item.unitPrice || 0);
       subtotal += itemTotal;
@@ -109,18 +110,18 @@ const CreateInvoice =  (existingInvoice, onSave) => {
     e.preventDefault();
     setLoading(true);
   }
-  
+
   return (
-    <form onSubmit={handleSubmit} className="">
-      <div className="">
-        <h2 className="">{existingInvoice ? "Edit Invoice" : "Create Invoice"}</h2>
+    <form onSubmit={handleSubmit} className="space-y-8 pb-[100vh]">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-semibold text-slate-900">{existingInvoice ? "Edit Invoice" : "Create Invoice"}</h2>
         <Button type="submit" isLoading={loading || isGeneratingNumber}>
           {existingInvoice ? "Save Changes" : "Save Invoice"}
         </Button>
       </div>
 
-      <div className="">
-        <div className="">
+      <div className="bg-white p-6 rounded-lg shadow-sm shadow-gray-100 border-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InputField 
             label="Invoice Number"
             name="invoiceNumber"
@@ -146,9 +147,9 @@ const CreateInvoice =  (existingInvoice, onSave) => {
         </div>
       </div>
 
-      <div className="">
-        <div className="">
-          <h3 className="">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="bg-white p-6 rounded-lg shadow-sm shadow-gray-100 border border-slate-200 space-y-4">
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">
             Bill From
           </h3>
           <InputField 
@@ -177,8 +178,8 @@ const CreateInvoice =  (existingInvoice, onSave) => {
             onChange={(e) => handleInputChange(e, "billFrom")}
           />
         </div>
-        <div className="">
-          <h3 className="">
+        <div className="bg-white p-6 rounded-lg shadow-sm shadow-gray-100 border border-slate-200 space-y-4">
+          <h3 className="text-lg font-semibold text-slate-900 mb-2">
             Bill To
           </h3>
           <InputField
