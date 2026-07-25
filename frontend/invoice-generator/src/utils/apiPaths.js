@@ -8,7 +8,7 @@ export const API_PATHS = {
         UPDATE_PROFILE: "/api/auth/me"
     },
 
-    INVOICE:{
+    INVOICE: {
         CREATE: "/api/invoices/",
         GET_ALL_INVOICES: "/api/invoices/",
         GET_INVOICE_BY_ID: (id) => `/api/invoices/${id}`,
@@ -16,7 +16,7 @@ export const API_PATHS = {
         DELETE_INVOICE: (id) => `/api/invoices/${id}`,
     },
 
-    AI:{
+    AI: {
         PARSE_INVOICE_TEXT: "/api/ai/parse-text",
         GENERATE_REMAINDER: "/api/ai/generate-remainder",
         GET_DASHBOARD_SUMMARY: "/api/ai/dashboard-summary"

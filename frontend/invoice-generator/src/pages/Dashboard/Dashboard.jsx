@@ -5,6 +5,7 @@ import { Loader2, FileText, Plus , IndianRupee} from "lucide-react";
 import {useNavigate} from "react-router-dom";
 import moment from "moment";
 import Button from  "../../components/ui/Button";
+import AIInsightsCard from "../../components/AIInsightsCard";
 
 const Dashboard =  () => {
 
@@ -82,7 +83,7 @@ const Dashboard =  () => {
   }
 
   return (
-    <div className="space-y-8 pb-96">
+    <div className="space-y-8">
       <div>
         <h2 className="text-xl font-semibold text-slate-900">Dashboard</h2>
         <p className="text-sm text-slate-600 mt-1">A quick overview of your business finances.</p>
@@ -113,6 +114,8 @@ const Dashboard =  () => {
           </div>
         ))}
       </div>
+
+        <AIInsightsCard/>
 
         <div className="w-full bg-white border border-slate-200 rounded-lg shadow-sm shadow-gray-100 overflow-hidden">
           <div className="px-4 sm:px-6 py-4 border-b border-slate-200 bg-slate-50 flex justify-between items-center">
@@ -177,7 +180,7 @@ const Dashboard =  () => {
               </table>
             </div>
           ) : (
-            <div className="flex flex-cols items-center justify-center py-12 text-center">
+            <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
                 <FileText className="w-8 h-8 text-slate-400"/>
               </div>
