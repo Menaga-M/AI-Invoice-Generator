@@ -1,4 +1,4 @@
-const SelectField = (label, name, options, ...props) => {
+const SelectField = ({label, name, options, ...props}) => {
   return (
     <div>
         <label htmlFor={name} className="block text-sm font-medium text-slate-700 mb-2">{label}</label>
@@ -12,7 +12,7 @@ const SelectField = (label, name, options, ...props) => {
                 <option
                     key={option.value || option} 
                     value={option.value || option}
-                ></option>
+                >{option.label || option}</option>
             ))}
         </select>
     </div>
