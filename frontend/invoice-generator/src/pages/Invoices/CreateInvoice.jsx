@@ -12,7 +12,7 @@ import SelectField from "../../components/ui/SelectField";
 import TextareaField from "../../components/ui/TextareaField";
 import Button from "../../components/ui/Button";
 
-const CreateInvoice =  (existingInvoice, onSave) => {
+const CreateInvoice =  ({existingInvoice, onSave}) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useAuth();
@@ -20,7 +20,7 @@ const CreateInvoice =  (existingInvoice, onSave) => {
   const [formData, setFormData] = useState(
     existingInvoice || {
       invoiceNumber: "",
-      invoiceDate:  new Date().toISOString().split("T")[0],
+      invoiceDate: new Date().toISOString().split("T")[0],
       dueDate: "",
       billFrom: {
         businessName: user?.businessName || "",
@@ -42,13 +42,13 @@ const CreateInvoice =  (existingInvoice, onSave) => {
     const aiData = location.state?.aiData;
 
     if(aiData) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
         billTo: {
-          clientName: aiData.clientName || '',
-          email: aiData.email || '',
-          address: aiData.address || '',
-          phone: ''
+          clientName: aiData.clientName || "",
+          email: aiData.email || "",
+          address: aiData.address || "",
+          phone: "",
         },
         items: aiData.items || [{name: "", quantity: 1, unitPrice: 0, taxPercent: 0}],
       }));
@@ -85,7 +85,7 @@ const CreateInvoice =  (existingInvoice, onSave) => {
 
   const handleInputChange = (e, section, index) => {
 
-  }
+  };
 
   const handleAddItem = () => {
     setFormData({...formData, items: [...formData.items, {name: "", quantity: 1, unitPrice: 0, taxPercent: 0}]});
@@ -192,7 +192,7 @@ const CreateInvoice =  (existingInvoice, onSave) => {
             label="Client Email"
             name="email"
             type="email"
-            value={formData.billTo.clientEmail}
+            value={formData.billTo.email}
             onChange={(e) => handleInputChange(e, "billTo")}
           />
           <TextareaField
@@ -210,41 +210,41 @@ const CreateInvoice =  (existingInvoice, onSave) => {
         </div>
       </div>
 
-      <div className="">
-        <div className="">
-          <h3 className="">Items</h3>
+      <div className="bg-white border border-slate-200 rounded-lg shadow-sm shadow-gray-100 overflow-hidden ">
+        <div className="p-4 sm:p-6 border-b border-slate-200 bg-slate-50">
+          <h3 className="text-lg font-semibold text-slate-900">Items</h3>
         </div>
-        <div className="">
-          <table className="">
-            <thead className="">
+        <div className="overflow-x-auto">
+          <table className="w-full  divide-y divide-slate-200">
+            <thead className="bg-slate-50">
               <tr>
-                <th className="">Item</th>
-                <th className="">Qty</th>
-                <th className="">Price</th>
-                <th className="">Tax (%)</th>
-                <th className="">Total</th>
-                <th className=""></th>
+                <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Item</th>
+                <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Qty</th>
+                <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Price</th>
+                <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Tax (%)</th>
+                <th className="px-2 sm:px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">Total</th>
+                <th className="px-2 sm:px-6 py-3"></th>
               </tr>
             </thead>
-            <tbody className="">
+            <tbody className="bg-white divide-y divide-slate-200">
               {formData.items.map((item, index) => (
-                <tr key={index} className="">
-                  <td className="">
-                    <input type="text" name="name" value={item.name} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="Item name" />
+                <tr key={index} className="hover:bg-slate-50">
+                  <td className="px-2 sm:px-6 py-4">
+                    <input type="text" name="name" value={item.name} onChange={(e) => handleInputChange(e,null, index)} className="w-full h-10 px-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Item name" />
                   </td>
-                  <td className="">
-                    <input type="number" name="quantity" value={item.quantity} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="1" />
+                  <td className="px-2 sm:px-6 py-4">
+                    <input type="number" name="quantity" value={item.quantity} onChange={(e) => handleInputChange(e,null, index)} className="w-full h-10 px-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="1" />
                   </td>
-                  <td className="">
-                    <input type="number" name="unitPrice" value={item.unitPrice} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="0.00" />
+                  <td className="px-2 sm:px-6 py-4">
+                    <input type="number" name="unitPrice" value={item.unitPrice} onChange={(e) => handleInputChange(e,null, index)} className="w-full h-10 px-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0.00" />
                   </td>
-                  <td className="">
-                    <input type="number" name="taxPercent" value={item.taxPercent} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="0" />
+                  <td className="px-2 sm:px-6 py-4">
+                    <input type="number" name="taxPercent" value={item.taxPercent} onChange={(e) => handleInputChange(e,null, index)} className="w-full h-10 px-3 py-2 border border-slate-200 rounded-lg bg-white text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="0" />
                   </td>
-                  <td className="">${((item.quantity ||0) * (item.unitPrice || 0) * (1 + (item.taxPercent || 0) / 100)).toFixed(2)}</td>
-                  <td className="">
+                  <td className="px-2 sm:px-6 py-4 text-sm text-slate-500">${((item.quantity ||0) * (item.unitPrice || 0) * (1 + (item.taxPercent || 0) / 100)).toFixed(2)}</td>
+                  <td className="px-2 sm:px-6 py-4">
                     <Button type="button" variant="ghost" size="small" onClick={() => handleRemoveItem(index)}>
-                      <Trash2 className="" />
+                      <Trash2 className="w-4 h-4 text-red-500" />
                     </Button>
                   </td>
                 </tr>
@@ -252,7 +252,7 @@ const CreateInvoice =  (existingInvoice, onSave) => {
             </tbody>
           </table>
         </div>
-        <div className="">
+        <div className="p-4 sm:p-6 border-t border-slate-200">
           <Button type="button" variant="secondary" onClick={handleAddItem} icon={Plus}>Add Item</Button> 
         </div>
       </div>
