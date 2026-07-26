@@ -209,6 +209,53 @@ const CreateInvoice =  (existingInvoice, onSave) => {
           />
         </div>
       </div>
+
+      <div className="">
+        <div className="">
+          <h3 className="">Items</h3>
+        </div>
+        <div className="">
+          <table className="">
+            <thead className="">
+              <tr>
+                <th className="">Item</th>
+                <th className="">Qty</th>
+                <th className="">Price</th>
+                <th className="">Tax (%)</th>
+                <th className="">Total</th>
+                <th className=""></th>
+              </tr>
+            </thead>
+            <tbody className="">
+              {formData.items.map((item, index) => (
+                <tr key={index} className="">
+                  <td className="">
+                    <input type="text" name="name" value={item.name} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="Item name" />
+                  </td>
+                  <td className="">
+                    <input type="number" name="quantity" value={item.quantity} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="1" />
+                  </td>
+                  <td className="">
+                    <input type="number" name="unitPrice" value={item.unitPrice} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="0.00" />
+                  </td>
+                  <td className="">
+                    <input type="number" name="taxPercent" value={item.taxPercent} onChange={(e) => handleInputChange(e,null, index)} className="" placeholder="0" />
+                  </td>
+                  <td className="">${((item.quantity ||0) * (item.unitPrice || 0) * (1 + (item.taxPercent || 0) / 100)).toFixed(2)}</td>
+                  <td className="">
+                    <Button type="button" variant="ghost" size="small" onClick={() => handleRemoveItem(index)}>
+                      <Trash2 className="" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="">
+          <Button type="button" variant="secondary" onClick={handleAddItem} icon={Plus}>Add Item</Button> 
+        </div>
+      </div>
     </form>
   )
 };
