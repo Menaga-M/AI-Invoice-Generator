@@ -1,7 +1,7 @@
 import {useEffect, useState, useMemo} from "react";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
-import { Loader2, Trash2, Edit, Search, FileText, Plus, AlertCircle, Sparkles, Mail, Sparkle} from "lucide-react";
+import { Loader2, Trash2, Edit, Search, FileText, Plus, AlertCircle, Sparkles, Mail} from "lucide-react";
 import moment from "moment";
 import {useNavigate}  from "react-router-dom";
 import Button from "../../components/ui/Button";
@@ -37,11 +37,31 @@ const AllInvoices =  () => {
   }, []);
 
   const handleDelete = async(id) => {
-    
+    if(window.confirm('Are you sure you what to delete this invoice?')){
+      try{
+        await axiosInstance.delete(API_PATHS.INVOICE.DELETE_INVOICE(id));
+        setInvoices(invoices.filter(invoice => invoice._id !== id));
+      }catch(error){
+        setError('Failed to delete invoice.');
+        console.error(error);
+      }
+    }
   };
 
   const handleStatusChange = async(invoice) => {
+    setStatusChangeLoading(invoice._id);
+    try{
+      const newStatus = invoice.status === 'Paid' ? 'Unpaid' : 'Paid';
+      const updatedInvoice = {...invoice, status:newStatus};
 
+      const response = await axiosInstance.put(API_PATHS.INVOICE.UPDATE_INVOICE(invoice._id), updatedInvoice);
+      setInvoices(invoices.map(inv => inv._id === invoice._id ? response.data : inv));
+    }catch(error){
+      setError('Failed to update invoice status.');
+      console.error(error);
+    }finally{
+      setStatusChangeLoading(null);
+    }
   };
 
   const handleOpenRemainderModel = (invoiceId) => {
@@ -72,7 +92,7 @@ const AllInvoices =  () => {
           <p className="text-sm text-slate-600 mt-1">Manage all your invoices in one place.</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" onCLick={() => setIsAiModelOpen(true)} icon={Sparkle}>Create with AI</Button>
+          <Button variant="secondary" onCLick={() => setIsAiModelOpen(true)} icon={Sparkles}>Create with AI</Button>
           <Button onClick={() => navigate("/invoices/new")} icon={Plus}>
             Create Invoice
           </Button>
