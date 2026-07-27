@@ -81,18 +81,29 @@ const CreateInvoice =  ({existingInvoice, onSave}) => {
       };
       generateNewInvoiceNumber();
     }
-  },[existingInvoice]);
+  }, [existingInvoice]);
 
   const handleInputChange = (e, section, index) => {
-
-  };
+    const { name, value, type } = e.target;
+    const parsedValue = type === "number" ? (value === "" ? "" : Number(value)) : value;
+    if (section) {
+    setFormData((prev) => ({ ...prev, [section]: { ...prev[section], [name]: parsedValue } }));
+  } else if (index !== undefined) {
+    const newItems = [...formData.items];
+    newItems[index] = { ...newItems[index], [name]: parsedValue };
+    setFormData((prev) => ({ ...prev, items: newItems }));
+  } else {
+    setFormData((prev) => ({ ...prev, [name]: parsedValue }));
+  }
+};
 
   const handleAddItem = () => {
     setFormData({...formData, items: [...formData.items, {name: "", quantity: 1, unitPrice: 0, taxPercent: 0}]});
   };
 
   const handleRemoveItem = (index) => {
-
+    const newItems = formData.items.filter((_, i) => i !== index);
+    setFormData({...formData, items:newItems});
   };
 
   const {subtotal, taxTotal, total} = (() => {
@@ -109,10 +120,30 @@ const CreateInvoice =  ({existingInvoice, onSave}) => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     setLoading(true);
+
+    const itemsWithTotal = formData.items.map((item) => ({
+      ...item,
+      total: (item.quantity || 0) * (item.unitPrice || 0) * (1 + (item.taxPercent || 0) / 100)
+    }));
+    const finalFormData = {...formData, items: itemsWithTotal, subtotal, taxTotal,total};
+
+    if(onSave){
+      await onSave(finalFormData);
+    }else{
+      try{
+        await axiosInstance.post(API_PATHS.INVOICE.CREATE, finalFormData);
+        toast.success("Invoice created successfully!");
+        navigate("/invoices");
+      }catch(error){
+        toast.error("Failed to create invoice");
+        console.error(error);
+      }
+    }
+    setLoading(false);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 pb-[100vh]">
+    <form onSubmit={handleSubmit} className="space-y-8 pb-12 pb-16">
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-semibold text-slate-900">{existingInvoice ? "Edit Invoice" : "Create Invoice"}</h2>
         <Button type="submit" isLoading={loading || isGeneratingNumber}>
