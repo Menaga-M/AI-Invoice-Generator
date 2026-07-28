@@ -63,7 +63,7 @@ exports.getInvoiceById = async(req, res) => {
         const invoice = await Invoice.findById(req.params.id).populate("user","name email");
         if(!invoice) return res.status(404).json({message: "Invoice not found"});
 
-        if(invoice.user.toString() !== req.user.id){
+        if(invoice.user._id.toString() !== req.user.id){
             return res.status(401).json({message: "Not authorized"});
         }
 
