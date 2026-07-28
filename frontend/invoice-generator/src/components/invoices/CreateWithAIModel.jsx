@@ -13,8 +13,28 @@ const CreateWithAIModel = ({isOpen, onClose}) => {
     const navigate  = useNavigate();
 
     const handleGenerate = async() => {
+        if(!text.trim()) {
+            toast.error('Please paste some text to generate an invoice.');
+            return;
+        }
+        setIsLoading(true);
+        try{
+            const response = await axiosInstance.post(API_PATHS.AI.PARSE_INVOICE_TEXT,{text});
+            const invoiceData = response.data;
 
+            toast.success('Invoice data extracted successfully');
+            onClose();
+
+            navigate("/invoices/new", {state: {aiData: invoiceData}});
+        }catch(error){
+            toast.error('Failed to generate invoice from text.');
+            console.error('AI parsing error:', error);
+        }finally {
+            setIsLoading(false);
+        }
     };  
+
+    if(!isOpen) return null
     return (
         <div className="fixed inset-0 z-50 overflow-y-auto">
             <div className="flex items-center justify-center min-h-screen px-4 text-center">

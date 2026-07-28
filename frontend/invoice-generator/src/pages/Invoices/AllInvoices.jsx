@@ -92,7 +92,7 @@ const AllInvoices =  () => {
           <p className="text-sm text-slate-600 mt-1">Manage all your invoices in one place.</p>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" onCLick={() => setIsAiModelOpen(true)} icon={Sparkles}>Create with AI</Button>
+          <Button variant="secondary" onClick={() => setIsAiModelOpen(true)} icon={Sparkles}>Create with AI</Button>
           <Button onClick={() => navigate("/invoices/new")} icon={Plus}>
             Create Invoice
           </Button>
