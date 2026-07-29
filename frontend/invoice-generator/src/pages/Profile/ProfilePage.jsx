@@ -35,12 +35,23 @@ const ProfilePage =  () => {
   }
 
   const handleUpdateProfile = async(e) => {
-
+    e.preventDefault();
+    setIsUpdating(true);
+    try{
+      const response = await axiosInstance.put(API_PATHS.AUTH.UPDATE_PROFILE,formData);
+      updateUser(response.data);
+      toast.success("Profile updated successfully!")
+    } catch(error){
+      toast.error("Failed to update profile.");
+      console.error(error);
+    }finally{
+      setIsUpdating(false);
+    }
   };
 
   if(loading) {
     return (
-      <div className="flex justify-center items-center h-96">
+      <div className="flex justify-center items-center">
         <Loader2 className="w-8 h-8 animate-spin text-blue-600"/>
       </div>
     );
