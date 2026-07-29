@@ -87,7 +87,7 @@ const InvoiceDetail =  () => {
               <Button variant="secondary" onClick={() => setIsReminderModelOpen(true)} icon={Mail}>Generate Reminder</Button>
             )}
             <Button variant="secondary" onClick={() => setIsEditing(true)} icon={Edit}>Edit</Button>
-            <Button variant="primary" onClick={() => handlePrint} icon={Printer}>Print or Download</Button>
+            <Button variant="primary" onClick={handlePrint} icon={Printer}>Print or Download</Button>
 
           </div>
         </div>
@@ -96,7 +96,7 @@ const InvoiceDetail =  () => {
           <div 
           ref={invoiceRef}
           id="invoice-preview"
-          className="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-md border border-slate-200 pb-[100vh]">
+          className="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-md border border-slate-200">
             <div className="flex flex-col sm:flex-row justify-between items-start pb-8 border-slate-200 border-b">
               <div>
                 <h2 className="text-3xl font-bold text-slate-900">INVOICE</h2>
